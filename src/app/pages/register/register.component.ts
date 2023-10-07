@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core'
+import { Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import {
   FormGroup,
@@ -7,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { confirmPasswordValidator } from 'src/app/validators/confirm-password.validator'
+import { AuthService } from 'src/app/services/auth.service'
 
 @Component({
   selector: 'app-register',
@@ -17,6 +19,8 @@ import { confirmPasswordValidator } from 'src/app/validators/confirm-password.va
 })
 export default class RegisterComponent implements OnInit {
   fb = inject(FormBuilder)
+  authService = inject(AuthService)
+  router = inject(Router)
 
   registerForm!: FormGroup
 
@@ -40,6 +44,15 @@ export default class RegisterComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value)
+    this.authService.registerService(this.registerForm.value).subscribe({
+      next: (res) => {
+        alert('User is successfully registered !')
+        this.registerForm.reset()
+        this.router.navigate(['login'])
+      },
+      error: (err) => {
+        console.log(err)
+      },
+    })
   }
 }
