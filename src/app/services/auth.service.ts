@@ -17,4 +17,20 @@ export class AuthService {
   loginService = (loginObj: any) => {
     return this.http.post<any>(`${apiUrls.authServiceApi}login`, loginObj)
   }
+
+  forgotPassword = (forgetPassObj: any) => {
+    return this.http.post<any>(
+      `${apiUrls.authServiceApi}send-email`,
+      forgetPassObj
+    )
+  }
+
+  resetPassword = (resetObj: any) => {
+    console.log(`${apiUrls}reset-password`)
+
+    return this.http.post<any>(
+      `${apiUrls.authServiceApi}reset-password`,
+      resetObj
+    )
+  }
 }

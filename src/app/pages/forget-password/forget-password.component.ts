@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-forget-password',
@@ -17,6 +18,7 @@ import { RouterModule } from '@angular/router'
 })
 export default class ForgetPasswordComponent implements OnInit {
   fb = inject(FormBuilder)
+  authService = inject(AuthService)
   forgetForm!: FormGroup
 
   ngOnInit(): void {
@@ -25,7 +27,14 @@ export default class ForgetPasswordComponent implements OnInit {
     })
   }
 
-  reset(): void {
+  forgotPassword(): void {
     console.log(this.forgetForm.value)
+    this.authService.forgotPassword(this.forgetForm.value).subscribe({
+      next: (res) => {
+        this.forgetForm.reset()
+        alert('Reset Password link is sent to your email')
+      },
+      error: (err) => console.log(err),
+    })
   }
 }
