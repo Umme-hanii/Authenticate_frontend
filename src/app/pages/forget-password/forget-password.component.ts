@@ -28,7 +28,6 @@ export default class ForgetPasswordComponent implements OnInit {
   }
 
   forgotPassword(): void {
-    console.log(this.forgetForm.value)
     this.authService.forgotPassword(this.forgetForm.value).subscribe({
       next: (res) => {
         this.forgetForm.reset()

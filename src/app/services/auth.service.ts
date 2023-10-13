@@ -9,8 +9,6 @@ export class AuthService {
   http = inject(HttpClient)
 
   registerService = (registerObj: any) => {
-    console.log(`${apiUrls.authServiceApi}register`)
-
     return this.http.post<any>(`${apiUrls.authServiceApi}register`, registerObj)
   }
 
@@ -26,8 +24,6 @@ export class AuthService {
   }
 
   resetPassword = (resetObj: any) => {
-    console.log(`${apiUrls}reset-password`)
-
     return this.http.post<any>(
       `${apiUrls.authServiceApi}reset-password`,
       resetObj
